@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prashant Varshney — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0B;--surface:#111113;--surface2:#18181B;
+  --border:#242428;--border2:#2E2E34;
+  --text:#F2F2F3;--muted:#72727A;--muted2:#A1A1AA;
+  --accent:#6EE7B7;--accent2:#3B82F6;--accent-dim:#0D2D22;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+  background:rgba(10,10,11,0.9);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.nav-brand{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:-0.02em;color:var(--text);}
+.nav-brand span{color:var(--accent);}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links li a{
+  display:block;padding:8px 14px;font-size:12px;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;cursor:pointer;transition:color 0.2s;position:relative;
+}
+.nav-links li a::after{
+  content:'';position:absolute;bottom:-1px;left:14px;right:14px;
+  height:1px;background:var(--accent);transform:scaleX(0);transition:transform 0.2s;
+}
+.nav-links li a:hover{color:var(--text);}
+.nav-links li a.active{color:var(--accent);}
+.nav-links li a.active::after{transform:scaleX(1);}
+.page{display:none;padding-top:60px;}
+.page.active{display:block;animation:pin 0.4s cubic-bezier(0.16,1,0.3,1);}
+@keyframes pin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#home.active{display:flex;flex-direction:column;}
+.hero{
+  min-height:calc(100vh - 60px);
+  display:grid;grid-template-columns:1fr 400px;
+  align-items:center;padding:0 2.5rem;gap:3rem;
+  border-bottom:1px solid var(--border);position:relative;overflow:hidden;
+}
+.glow{
+  position:absolute;top:-20%;right:-10%;width:500px;height:500px;
+  background:radial-gradient(circle,rgba(110,231,183,0.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;
+  background:var(--accent-dim);border:1px solid rgba(110,231,183,0.2);
+  border-radius:100px;font-size:11px;font-weight:500;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:2rem;
+}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.name{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(3.2rem,5.5vw,5rem);
+  line-height:0.95;letter-spacing:-0.03em;color:var(--text);margin-bottom:1rem;
+}
+h1.name .ghost{color:transparent;-webkit-text-stroke:1px rgba(242,242,243,0.25);}
+.role{font-family:'Syne',sans-serif;font-weight:400;font-size:1.2rem;color:var(--muted2);margin-bottom:1.75rem;}
+.role strong{color:var(--accent);font-weight:500;}
+.desc{font-size:15px;line-height:1.75;color:var(--muted);max-width:480px;margin-bottom:2.5rem;}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:3.5rem;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:11px 24px;font-size:13px;font-weight:500;letter-spacing:0.02em;
+  cursor:pointer;border-radius:6px;text-decoration:none;transition:all 0.2s;
+  font-family:'Inter',sans-serif;border:1px solid transparent;
+}
+.btn-p{background:var(--accent);color:#0A0A0B;}
+.btn-p:hover{background:#5DD4A3;}
+.btn-g{background:transparent;color:var(--muted2);border-color:var(--border2);}
+.btn-g:hover{border-color:var(--muted);color:var(--text);}
+.stats{display:flex;gap:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border);}
+.sv{font-family:'Syne',sans-serif;font-weight:700;font-size:1.8rem;letter-spacing:-0.03em;color:var(--text);display:block;margin-bottom:4px;}
+.sl{font-size:11px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;}
+.ch{display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);}
+.av{
+  width:48px;height:48px;border-radius:12px;background:var(--accent-dim);
+  border:1px solid rgba(110,231,183,0.2);display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--accent);
+}
+.cn{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:2px;}
+.cl{font-size:12px;color:var(--muted);}
+.cr{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border);}
+.cr:last-child{border-bottom:none;}
+.ck{font-size:11px;color:var(--muted);letter-spacing:0.05em;text-transform:uppercase;}
+.cv{font-size:13px;color:var(--text);text-align:right;}
+.cv a{color:var(--accent2);text-decoration:none;}
+.stags{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.stag{padding:4px 10px;border-radius:4px;font-size:11px;font-weight:500;background:var(--surface2);border:1px solid var(--border);color:var(--muted2);}
+.wrap{max-width:960px;margin:0 auto;padding:5rem 2.5rem 7rem;}
+.sec-lbl{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:12px;}
+.sec-lbl::before{content:'';width:24px;height:1px;background:var(--accent);}
+.sec-t{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,3.5vw,3rem);letter-spacing:-0.03em;color:var(--text);line-height:1.05;margin-bottom:3.5rem;}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+.ab p{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:1rem;}
+.ab p strong{color:var(--text);font-weight:500;}
+.div{height:1px;background:var(--border);margin:2rem 0;}
+.ec{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:12px;transition:border-color 0.2s;}
+.ec:hover{border-color:var(--border2);}
+.ed{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:6px;color:var(--text);}
+.ei{font-size:13px;color:var(--accent2);margin-bottom:6px;}
+.ey{font-size:11px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;}
+.ci{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);}
+.ci:last-child{border-bottom:none;}
+.cdot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px;}
+.ct{font-size:13px;color:var(--muted);}
+.sg{margin-bottom:2.5rem;}
+.sgl{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;display:flex;align-items:center;gap:10px;}
+.sgl::after{content:'';flex:1;height:1px;background:var(--border);}
+.sps{display:flex;flex-wrap:wrap;gap:8px;}
+.pill{padding:8px 16px;border-radius:6px;font-size:13px;background:var(--surface);border:1px solid var(--border);color:var(--muted2);transition:all 0.18s;cursor:default;}
+.pill:hover{border-color:var(--border2);color:var(--text);}
+.pill.c{background:var(--accent-dim);border-color:rgba(110,231,183,0.25);color:var(--accent);}
+.proj{
+  padding:2.5rem;background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;margin-bottom:16px;transition:border-color 0.25s,transform 0.25s;
+  position:relative;overflow:hidden;
+}
+.proj::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.proj:hover{border-color:var(--border2);transform:translateY(-2px);}
+.proj:hover::before{opacity:1;}
+.pt{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+.pn{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.py{font-size:11px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);padding:3px 10px;border-radius:100px;}
+.ptl{font-family:'Syne',sans-serif;font-weight:700;font-size:1.35rem;letter-spacing:-0.02em;color:var(--text);margin-bottom:0.75rem;}
+.pd{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+.psk{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.5rem;}
+.ptag{padding:3px 10px;border-radius:4px;font-size:11px;font-weight:500;background:var(--surface2);border:1px solid var(--border);color:var(--muted2);}
+.pdiv{height:1px;background:var(--border);margin-bottom:1.25rem;}
+.pts{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.pts li{display:flex;gap:12px;font-size:13px;color:var(--muted);line-height:1.6;}
+.pa{color:var(--accent);flex-shrink:0;margin-top:1px;}
+.ctwo{display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
+.cintro{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:2rem;}
+.cavail{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:8px;
+  background:var(--accent-dim);border:1px solid rgba(110,231,183,0.2);
+  font-size:13px;color:var(--accent);margin-bottom:2.5rem;
+}
+.adot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 2s infinite;}
+.clink{
+  display:flex;align-items:center;gap:16px;padding:1.25rem;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);
+  text-decoration:none;margin-bottom:10px;transition:all 0.2s;
+}
+.clink:hover{border-color:var(--border2);background:var(--surface2);}
+.cico{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;font-family:'Syne',sans-serif;}
+.ico-e{background:#1A1A1F;border:1px solid var(--border);color:var(--muted2);}
+.ico-l{background:#0D1B2E;border:1px solid rgba(59,130,246,0.3);color:var(--accent2);}
+.ico-lc{background:#1A1210;border:1px solid rgba(239,183,90,0.3);color:#EFB75A;}
+.ico-p{background:#0D2010;border:1px solid rgba(110,231,183,0.2);color:var(--accent);}
+.ci2{flex:1;}
+.clbl{font-size:11px;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:3px;}
+.cval{font-size:14px;color:var(--text);}
+.carr{color:var(--muted);font-size:16px;transition:transform 0.2s;}
+.clink:hover .carr{transform:translateX(4px);color:var(--accent);}
+.aside-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;}
+.at{font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:1.5rem;color:var(--text);}
+.al{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.al:last-child{border-bottom:none;}
+.ak{color:var(--muted);}
+.av2{color:var(--text);}
+@media(max-width:720px){
+  nav{padding:0 1rem;}
+  .nav-links li a{padding:8px 7px;font-size:10px;}
+  .hero{grid-template-columns:1fr;padding:2rem 1.25rem;}
+  .card{display:none;}
+  .wrap{padding:3rem 1.25rem 5rem;}
+  .two,.ctwo{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Prashant<span>.</span></div>
+  <ul class="nav-links">
+    <li><a onclick="go('home')" id="n-home" class="active">Home</a></li>
+    <li><a onclick="go('about')" id="n-about">About</a></li>
+    <li><a onclick="go('skills')" id="n-skills">Skills</a></li>
+    <li><a onclick="go('projects')" id="n-projects">Projects</a></li>
+    <li><a onclick="go('contact')" id="n-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="glow"></div>
+    <div>
+      <h1 class="name">Prashant<br><span class="ghost">Varshney</span></h1>
+      <p class="role">Data Analyst &amp; <strong>ML Engineer</strong></p>
+      <p class="desc">B.Tech CSE student building end-to-end data pipelines, statistical models, and real-time APIs. Turning raw data into clear decisions.</p>
+      <div class="actions">
+        <a class="btn btn-p" onclick="go('projects')">View Projects →</a>
+        <a class="btn btn-g" onclick="go('contact')">Get in Touch</a>
+      </div>
+      <div class="stats">
+        <div><span class="sv">95–98%</span><span class="sl">Model Accuracy</span></div>
+        <div><span class="sv">4,000+</span><span class="sl">Samples Processed</span></div>
+        <div><span class="sv">2026</span><span class="sl">Graduating</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <div class="av">PV</div>
+        <div>
+          <div class="cn">Prashant Varshney</div>
+          <div class="cl">Greater Noida, India</div>
+        </div>
+      </div>
+      <div class="cr"><span class="ck">Email</span><span class="cv">varshneyprashant56@gmail.com</span></div>
+      <div class="cr"><span class="ck">Phone</span><span class="cv">+91 70178 09482</span></div>
+      <div class="cr"><span class="ck">Degree</span><span class="cv">B.Tech CSE — 2026</span></div>
+      <div class="cr"><span class="ck">LinkedIn</span><span class="cv"><a href="https://linkedin.com/in/prashant-varshney-6a6b47282" target="_blank">View Profile →</a></span></div>
+      <div class="cr"><span class="ck">LeetCode</span><span class="cv"><a href="https://leetcode.com/u/prashant7017" target="_blank">prashant7017 →</a></span></div>
+      <div class="stags">
+        <span class="stag">Python</span><span class="stag">SQL</span><span class="stag">PyTorch</span>
+        <span class="stag">FastAPI</span><span class="stag">Pandas</span><span class="stag">Power BI</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="page">
+  <div class="wrap">
+    <div class="sec-lbl">01 — About Me</div>
+    <div class="sec-t">Background &amp; Education</div>
+    <div class="two">
+      <div class="ab">
+        <p>I'm a final-year <strong>Computer Science student</strong> at Galgotias University with a deep focus on data analytics, machine learning, and backend API development.</p>
+        <p>My technical work spans the full pipeline — from <strong>exploratory data analysis and statistical validation</strong> to training deep learning models and deploying them as production-ready REST APIs.</p>
+        <p>On the Deepfake Detection project, I processed 4,000+ video samples and fine-tuned an Xception CNN to achieve <strong>95–98% classification accuracy</strong>, then shipped it as a live FastAPI endpoint.</p>
+        <p>Beyond code, I coordinate large-scale college events and actively sharpen my algorithmic skills on LeetCode.</p>
+        <div class="div"></div>
+        <p>Currently open to internship/Full Time roles in <strong>data analytics or ML engineering</strong></p>
+      </div>
+      <div>
+        <div class="sec-lbl" style="margin-bottom:1.25rem;">Education</div>
+        <div class="ec">
+          <div class="ed">B.Tech — Computer Science &amp; Engineering</div>
+          <div class="ei">Galgotias University, Greater Noida</div>
+          <div class="ey">Aug 2022 — Jun 2026 (Expected)</div>
+        </div>
+        <div class="ec">
+          <div class="ed">Senior Secondary — PCM</div>
+          <div class="ei">UP Board, Uttar Pradesh</div>
+          <div class="ey">2021 — 2022</div>
+        </div>
+        <div class="sec-lbl" style="margin-top:2rem;margin-bottom:1.25rem;">Activities</div>
+        <div class="ci"><div class="cdot"></div><div class="ct">Cyber Security Workshop — Digital safety, threat analysis &amp; online security practices</div></div>
+        <div class="ci"><div class="cdot"></div><div class="ct">LeetCode — Active DSA problem solving to strengthen algorithmic thinking</div></div>
+        <div class="ci"><div class="cdot"></div><div class="ct">Unifest College Fest — Logistics coordinator, team &amp; event management</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div id="skills" class="page">
+  <div class="wrap">
+    <div class="sec-lbl">02 — Skills</div>
+    <div class="sec-t">Technical Stack</div>
+    <div class="sg"><div class="sgl">Languages &amp; Query</div><div class="sps"><span class="pill c">Python</span><span class="pill c">SQL (MySQL)</span><span class="pill">Java</span><span class="pill">C++</span></div></div>
+    <div class="sg"><div class="sgl">Data Analysis &amp; Machine Learning</div><div class="sps"><span class="pill c">Pandas</span><span class="pill c">NumPy</span><span class="pill c">Scikit-learn</span><span class="pill c">PyTorch</span><span class="pill">OpenCV</span><span class="pill">MTCNN</span></div></div>
+    <div class="sg"><div class="sgl">Visualization</div><div class="sps"><span class="pill c">Matplotlib</span><span class="pill c">Seaborn</span><span class="pill">Power BI</span><span class="pill">Tableau</span></div></div>
+    <div class="sg"><div class="sgl">Tools &amp; Frameworks</div><div class="sps"><span class="pill c">FastAPI</span><span class="pill">Git</span><span class="pill">Jupyter Notebook</span><span class="pill">VS Code</span></div></div>
+    <div class="sg"><div class="sgl">Core Concepts</div><div class="sps"><span class="pill">Data Cleaning</span><span class="pill">EDA</span><span class="pill">Statistical Analysis</span><span class="pill">Data Structures &amp; Algorithms</span><span class="pill">OOP</span><span class="pill">REST APIs</span></div></div>
+    <div class="sg"><div class="sgl">Soft Skills</div><div class="sps"><span class="pill">Analytical Thinking</span><span class="pill">Problem Solving</span><span class="pill">Collaboration</span><span class="pill">Communication</span></div></div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div id="projects" class="page">
+  <div class="wrap">
+    <div class="sec-lbl">03 — Work</div>
+    <div class="sec-t">Featured Projects</div>
+    <div class="proj">
+      <div class="pt"><span class="pn">Project 01</span><span class="py">2025</span></div>
+      <div class="ptl">Deepfake Content Detection System</div>
+      <p class="pd">End-to-end video forensics pipeline to classify real vs. synthetic media — deployed as a real-time REST API returning confidence scores for cybercrime investigations.</p>
+      <div class="psk"><span class="ptag">Python</span><span class="ptag">PyTorch</span><span class="ptag">OpenCV</span><span class="ptag">FastAPI</span><span class="ptag">MTCNN</span><span class="ptag">Xception CNN</span><span class="ptag">Chi-squared Test</span></div>
+      <div class="pdiv"></div>
+      <ul class="pts">
+        <li><span class="pa">→</span>Processed and analyzed 4,000+ real and synthetic video samples for binary classification training</li>
+        <li><span class="pa">→</span>Applied chi-squared statistical validation to confirm balanced class distribution across splits</li>
+        <li><span class="pa">→</span>Fine-tuned Xception CNN achieving 95–98% classification accuracy</li>
+        <li><span class="pa">→</span>Deployed as FastAPI REST endpoint returning confidence-percentage scores for live use</li>
+      </ul>
+    </div>
+    <div class="proj">
+      <div class="pt"><span class="pn">Project 02</span><span class="py">2024</span></div>
+      <div class="ptl">Real-Time Weather Dashboard</div>
+      <p class="pd">Live weather data dashboard integrating OpenWeatherMap REST API — demonstrating the complete data retrieval, transformation, and UI rendering pipeline.</p>
+      <div class="psk"><span class="ptag">JavaScript</span><span class="ptag">HTML/CSS</span><span class="ptag">OpenWeatherMap API</span><span class="ptag">DOM Rendering</span></div>
+      <div class="pdiv"></div>
+      <ul class="pts">
+        <li><span class="pa">→</span>Fetched and parsed live multi-attribute data — temperature, humidity, and forecasts</li>
+        <li><span class="pa">→</span>Built dynamic DOM rendering for a clean, structured dashboard layout</li>
+        <li><span class="pa">→</span>Simulated real-world data ingestion and transformation pipeline patterns</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <div class="wrap">
+    <div class="sec-lbl">04 — Contact</div>
+    <div class="sec-t">Let's Connect</div>
+    <div class="ctwo">
+      <div>
+        <div class="cavail"><div class="adot"></div>Available — can join immediately in Gurugram</div>
+        <p class="cintro">I'm actively looking for internship opportunities in data analytics and machine learning. Based in Greater Noida, open to Gurugram office.</p>
+        <a class="clink" href="mailto:varshneyprashant56@gmail.com">
+          <div class="cico ico-e">@</div>
+          <div class="ci2"><div class="clbl">Email</div><div class="cval">varshneyprashant56@gmail.com</div></div>
+          <span class="carr">→</span>
+        </a>
+        <a class="clink" href="tel:+917017809482">
+          <div class="cico ico-p">#</div>
+          <div class="ci2"><div class="clbl">Phone</div><div class="cval">+91 70178 09482</div></div>
+          <span class="carr">→</span>
+        </a>
+        <a class="clink" href="https://linkedin.com/in/prashant-varshney-6a6b47282" target="_blank">
+          <div class="cico ico-l">in</div>
+          <div class="ci2"><div class="clbl">LinkedIn</div><div class="cval">prashant-varshney-6a6b47282</div></div>
+          <span class="carr">→</span>
+        </a>
+        <a class="clink" href="https://leetcode.com/u/prashant7017" target="_blank">
+          <div class="cico ico-lc">LC</div>
+          <div class="ci2"><div class="clbl">LeetCode</div><div class="cval">prashant7017</div></div>
+          <span class="carr">→</span>
+        </a>
+      </div>
+      <div>
+        <div class="aside-card">
+          <div class="at">Quick Info</div>
+          <div class="al"><span class="ak">University</span><span class="av2">Galgotias University</span></div>
+          <div class="al"><span class="ak">Degree</span><span class="av2">B.Tech CSE</span></div>
+          <div class="al"><span class="ak">Graduation</span><span class="av2">Jun 2026</span></div>
+          <div class="al"><span class="ak">Location</span><span class="av2">Greater Noida, UP</span></div>
+          <div class="al"><span class="ak">Preferred Role</span><span class="av2">Data Analyst / ML Intern</span></div>
+          <div class="al"><span class="ak">Availability</span><span class="av2" style="color:var(--accent)">Immediate</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('n-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+</script>
+</body>
+</html>
